@@ -34,19 +34,19 @@ LDA #%00000110	;Zapnuty display a kurzor
 JSR _lcd_w_reg
 LDA #%00000001	;Clear Display
 JSR _lcd_w_reg
-LDA #LCD_1LINE
+LDA #$80
 STA radek
 RTS
 
 _lcd_put_newline:
                 PHA
                 LDA #radek
-                CMP #LCD_1LINE
+                CMP #$80
                 BNE _radek2
-_radek1:        LDA #LCD_2LINE
+_radek1:        LDA #$c0
                 STA radek
                 JSR _lcd_w_reg
-_radek2:        LDA #LCD_1LINE
+_radek2:        LDA #$80
                 STA radek
                 JSR _lcd_w_reg
                 PLA
