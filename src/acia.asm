@@ -1,5 +1,5 @@
 .include "io.inc65"
-.include "macros.inc65"
+.include "macros_65C02.inc65"
 
 .zeropage
 

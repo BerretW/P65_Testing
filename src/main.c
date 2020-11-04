@@ -33,7 +33,7 @@ void lcd_put_text(char * s){
 }
 
 
-void print_f(const char * s){
+void print_f(char * s){
   acia_put_newline();
   acia_puts(s);
   lcd_put_text(s);

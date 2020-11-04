@@ -1,12 +1,12 @@
 del .\output\*.*
 
 cd .\src
-cc65 -t none -O --cpu 6502 main.c
-ca65 --cpu 6502 main.s -o ..\output\main.o
-ca65 --cpu 6502 vectors.asm -o ..\output\vectors.o
-ca65 --cpu 6502 acia.asm -o ..\output\acia.o
-ca65 --cpu 6502 interrupts.asm -o ..\output\interrupts.o
-ca65 --cpu 6502 lcd.asm -o ..\output\lcd.o
+cc65 -t none -O --cpu 65C02 main.c
+ca65 --cpu 65C02 main.s -o ..\output\main.o
+ca65 --cpu 65C02 vectors.asm -o ..\output\vectors.o
+ca65 --cpu 65C02 acia.asm -o ..\output\acia.o
+ca65 --cpu 65C02 interrupts.asm -o ..\output\interrupts.o
+ca65 --cpu 65C02 lcd.asm -o ..\output\lcd.o
 
 move *.s ..\output
 
