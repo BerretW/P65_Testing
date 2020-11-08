@@ -18,11 +18,13 @@
 ; ---------------------------------------------------------------------------
 ; Non-maskable interrupt (NMI) service routine
 
-_nmi_int:  RTI                    ; Return from all NMI interrupts
+_nmi_int:   CLI
+            RTI                    ; Return from all NMI interrupts
 
 ; ---------------------------------------------------------------------------
 ; Maskable interrupt (IRQ) service routine
-_irq_int:   PHA
+_irq_int:   SEI
+            PHA
             LDA #41
             jsr _acia_putc
             PLA
