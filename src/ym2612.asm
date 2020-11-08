@@ -23,11 +23,11 @@
 
 _ym_setreg:
             jsr pusha
-            ldy #$00
+            ldy #$01
             lda (sp),y
             JSR _ym_write_reg
             jsr _delay
-            LDY #$01
+            LDY #$00
             LDA (sp),y
             JSR _ym_write_data
             jmp incsp2
@@ -100,7 +100,7 @@ _ym_write_reg:  PHA
                 STX VIA_ORB
                 RTS
 
-_delay:					LDX #$4
+_delay:					LDX #$1
 _delay1:				DEX
                 BNE _delay1
                 RTS

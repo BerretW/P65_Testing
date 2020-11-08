@@ -131,169 +131,169 @@ L0009:	lda     (sp)
 	stz     _note+1
 	jsr     _lcd_init
 	jsr     _ym_init
-	lda     #$00
-	jsr     pusha
 	lda     #$22
-	jsr     _ym_setreg
-	lda     #$00
 	jsr     pusha
+	lda     #$00
+	jsr     _ym_setreg
 	lda     #$27
+	jsr     pusha
+	lda     #$00
 	jsr     _ym_setreg
+	lda     #$28
+	jsr     pusha
 	lda     #$01
-	jsr     pusha
-	lda     #$28
 	jsr     _ym_setreg
+	lda     #$28
+	jsr     pusha
 	lda     #$02
-	jsr     pusha
-	lda     #$28
 	jsr     _ym_setreg
+	lda     #$28
+	jsr     pusha
 	lda     #$04
-	jsr     pusha
-	lda     #$28
 	jsr     _ym_setreg
+	lda     #$28
+	jsr     pusha
 	lda     #$05
-	jsr     pusha
-	lda     #$28
 	jsr     _ym_setreg
+	lda     #$28
+	jsr     pusha
 	lda     #$06
-	jsr     pusha
-	lda     #$28
 	jsr     _ym_setreg
-	lda     #$00
-	jsr     pusha
 	lda     #$2B
-	jsr     _ym_setreg
-	lda     #$71
 	jsr     pusha
+	lda     #$00
+	jsr     _ym_setreg
 	lda     #$30
-	jsr     _ym_setreg
-	lda     #$0D
 	jsr     pusha
+	lda     #$71
+	jsr     _ym_setreg
 	lda     #$34
-	jsr     _ym_setreg
-	lda     #$33
 	jsr     pusha
+	lda     #$0D
+	jsr     _ym_setreg
 	lda     #$38
-	jsr     _ym_setreg
-	lda     #$01
 	jsr     pusha
+	lda     #$33
+	jsr     _ym_setreg
 	lda     #$3C
-	jsr     _ym_setreg
-	lda     #$23
 	jsr     pusha
+	lda     #$01
+	jsr     _ym_setreg
 	lda     #$40
-	jsr     _ym_setreg
-	lda     #$2D
 	jsr     pusha
+	lda     #$23
+	jsr     _ym_setreg
 	lda     #$44
-	jsr     _ym_setreg
-	lda     #$26
 	jsr     pusha
+	lda     #$2D
+	jsr     _ym_setreg
 	lda     #$48
-	jsr     _ym_setreg
-	lda     #$00
 	jsr     pusha
+	lda     #$26
+	jsr     _ym_setreg
 	lda     #$4C
-	jsr     _ym_setreg
-	lda     #$5F
 	jsr     pusha
+	lda     #$00
+	jsr     _ym_setreg
 	lda     #$50
-	jsr     _ym_setreg
-	lda     #$99
 	jsr     pusha
-	lda     #$54
-	jsr     _ym_setreg
 	lda     #$5F
+	jsr     _ym_setreg
+	lda     #$54
 	jsr     pusha
+	lda     #$99
+	jsr     _ym_setreg
 	lda     #$58
-	jsr     _ym_setreg
-	lda     #$94
 	jsr     pusha
+	lda     #$5F
+	jsr     _ym_setreg
 	lda     #$5C
-	jsr     _ym_setreg
-	lda     #$05
-	jsr     pusha
-	lda     #$60
-	jsr     _ym_setreg
-	lda     #$05
-	jsr     pusha
-	lda     #$64
-	jsr     _ym_setreg
-	lda     #$05
-	jsr     pusha
-	lda     #$68
-	jsr     _ym_setreg
-	lda     #$07
-	jsr     pusha
-	lda     #$6C
-	jsr     _ym_setreg
-	lda     #$02
-	jsr     pusha
-	lda     #$70
-	jsr     _ym_setreg
-	lda     #$02
-	jsr     pusha
-	lda     #$74
-	jsr     _ym_setreg
-	lda     #$02
-	jsr     pusha
-	lda     #$78
-	jsr     _ym_setreg
-	lda     #$02
-	jsr     pusha
-	lda     #$7C
-	jsr     _ym_setreg
-	lda     #$11
-	jsr     pusha
-	lda     #$80
-	jsr     _ym_setreg
-	lda     #$11
-	jsr     pusha
-	lda     #$84
-	jsr     _ym_setreg
-	lda     #$11
-	jsr     pusha
-	lda     #$88
-	jsr     _ym_setreg
-	lda     #$A6
-	jsr     pusha
-	lda     #$8C
-	jsr     _ym_setreg
-	lda     #$00
-	jsr     pusha
-	lda     #$90
-	jsr     _ym_setreg
-	lda     #$00
 	jsr     pusha
 	lda     #$94
 	jsr     _ym_setreg
-	lda     #$00
+	lda     #$60
 	jsr     pusha
+	lda     #$05
+	jsr     _ym_setreg
+	lda     #$64
+	jsr     pusha
+	lda     #$05
+	jsr     _ym_setreg
+	lda     #$68
+	jsr     pusha
+	lda     #$05
+	jsr     _ym_setreg
+	lda     #$6C
+	jsr     pusha
+	lda     #$07
+	jsr     _ym_setreg
+	lda     #$70
+	jsr     pusha
+	lda     #$02
+	jsr     _ym_setreg
+	lda     #$74
+	jsr     pusha
+	lda     #$02
+	jsr     _ym_setreg
+	lda     #$78
+	jsr     pusha
+	lda     #$02
+	jsr     _ym_setreg
+	lda     #$7C
+	jsr     pusha
+	lda     #$02
+	jsr     _ym_setreg
+	lda     #$80
+	jsr     pusha
+	lda     #$11
+	jsr     _ym_setreg
+	lda     #$84
+	jsr     pusha
+	lda     #$11
+	jsr     _ym_setreg
+	lda     #$88
+	jsr     pusha
+	lda     #$11
+	jsr     _ym_setreg
+	lda     #$8C
+	jsr     pusha
+	lda     #$A6
+	jsr     _ym_setreg
+	lda     #$90
+	jsr     pusha
+	lda     #$00
+	jsr     _ym_setreg
+	lda     #$94
+	jsr     pusha
+	lda     #$00
+	jsr     _ym_setreg
 	lda     #$98
-	jsr     _ym_setreg
-	lda     #$00
 	jsr     pusha
+	lda     #$00
+	jsr     _ym_setreg
 	lda     #$9C
-	jsr     _ym_setreg
-	lda     #$32
 	jsr     pusha
-	lda     #$B0
-	jsr     _ym_setreg
-	lda     #$C0
-	jsr     pusha
-	lda     #$B4
-	jsr     _ym_setreg
 	lda     #$00
+	jsr     _ym_setreg
+	lda     #$B0
 	jsr     pusha
+	lda     #$32
+	jsr     _ym_setreg
+	lda     #$B4
+	jsr     pusha
+	lda     #$C0
+	jsr     _ym_setreg
 	lda     #$28
-	jsr     _ym_setreg
-	lda     #$22
 	jsr     pusha
+	lda     #$00
+	jsr     _ym_setreg
 	lda     #$A4
-	jsr     _ym_setreg
-	lda     #$69
 	jsr     pusha
+	lda     #$22
+	jsr     _ym_setreg
 	lda     #$A0
+	jsr     pusha
+	lda     #$69
 	jsr     _ym_setreg
 L0002:	jsr     _acia_getc
 	sta     _c
@@ -303,17 +303,17 @@ L0002:	jsr     _acia_getc
 	lda     _note
 	ora     _note+1
 	bne     L0005
-	lda     _c
-	jsr     pusha
 	lda     #$28
+	jsr     pusha
+	lda     _c
 	jsr     _ym_setreg
 	lda     #$01
 	sta     _note
 	stz     _note+1
 	bra     L0002
-L0005:	lda     #$00
+L0005:	lda     #$28
 	jsr     pusha
-	lda     #$28
+	lda     #$00
 	jsr     _ym_setreg
 	stz     _note
 	stz     _note+1
