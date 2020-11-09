@@ -10,7 +10,7 @@ ACIA_CONTROL = ACIA_BASE + 3
 
 ;BANK registers
 
-BANK_BASE   = $CD00
+BANK_BASE   = $CE00
 
 ; ACIA control register bit values
 

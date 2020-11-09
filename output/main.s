@@ -13,6 +13,7 @@
 	.forceimport	__STARTUP__
 	.import		_acia_puts
 	.import		_acia_put_newline
+	.import		_acia_getc
 	.import		_lcd_init
 	.import		_lcd_puts
 	.import		_lcd_w_reg
@@ -21,8 +22,8 @@
 	.import		_getByte
 	.import		_ym_setreg
 	.import		_ym_setreg_A1
-	.export		_song_size
-	.export		_song
+	.import		_format_bank
+	.import		_write_to_BANK
 	.export		_c
 	.export		_line
 	.export		_note
@@ -31,586 +32,29 @@
 	.export		_i2
 	.export		_waitL
 	.export		_waitH
+	.export		_playing
 	.export		_cmd
 	.export		_lcd_put_text
 	.export		_print_f
+	.export		_PlayFromBank
 	.export		_main
 
 .segment	"DATA"
 
-_song_size:
-	.word	$0238
-_song:
-	.byte	$56
-	.byte	$67
-	.byte	$6D
-	.byte	$20
-	.byte	$34
-	.byte	$02
-	.byte	$00
-	.byte	$00
-	.byte	$60
-	.byte	$01
-	.byte	$00
-	.byte	$00
-	.byte	$99
-	.byte	$9E
-	.byte	$36
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$9E
-	.byte	$01
-	.byte	$00
-	.byte	$00
-	.byte	$80
-	.byte	$95
-	.byte	$02
-	.byte	$00
-	.byte	$67
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$32
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$09
-	.byte	$00
-	.byte	$10
-	.byte	$00
-	.byte	$B6
-	.byte	$0A
-	.byte	$75
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$4C
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$52
-	.byte	$22
-	.byte	$08
-	.byte	$52
-	.byte	$27
-	.byte	$00
-	.byte	$52
-	.byte	$B4
-	.byte	$C0
-	.byte	$52
-	.byte	$B5
-	.byte	$C0
-	.byte	$52
-	.byte	$B6
-	.byte	$C0
-	.byte	$53
-	.byte	$B4
-	.byte	$C0
-	.byte	$53
-	.byte	$B5
-	.byte	$C0
-	.byte	$53
-	.byte	$B6
-	.byte	$C0
-	.byte	$52
-	.byte	$28
-	.byte	$00
-	.byte	$52
-	.byte	$28
-	.byte	$01
-	.byte	$52
-	.byte	$28
-	.byte	$02
-	.byte	$52
-	.byte	$28
-	.byte	$03
-	.byte	$52
-	.byte	$28
-	.byte	$04
-	.byte	$52
-	.byte	$28
-	.byte	$05
-	.byte	$52
-	.byte	$28
-	.byte	$06
-	.byte	$50
-	.byte	$9F
-	.byte	$50
-	.byte	$BF
-	.byte	$50
-	.byte	$DF
-	.byte	$50
-	.byte	$FF
-	.byte	$52
-	.byte	$30
-	.byte	$24
-	.byte	$52
-	.byte	$40
-	.byte	$28
-	.byte	$52
-	.byte	$50
-	.byte	$1F
-	.byte	$52
-	.byte	$60
-	.byte	$09
-	.byte	$52
-	.byte	$70
-	.byte	$00
-	.byte	$52
-	.byte	$80
-	.byte	$05
-	.byte	$52
-	.byte	$90
-	.byte	$00
-	.byte	$52
-	.byte	$34
-	.byte	$31
-	.byte	$52
-	.byte	$44
-	.byte	$1F
-	.byte	$52
-	.byte	$54
-	.byte	$1F
-	.byte	$52
-	.byte	$64
-	.byte	$00
-	.byte	$52
-	.byte	$74
-	.byte	$00
-	.byte	$52
-	.byte	$84
-	.byte	$05
-	.byte	$52
-	.byte	$94
-	.byte	$00
-	.byte	$52
-	.byte	$38
-	.byte	$74
-	.byte	$52
-	.byte	$48
-	.byte	$2C
-	.byte	$52
-	.byte	$58
-	.byte	$1F
-	.byte	$52
-	.byte	$68
-	.byte	$09
-	.byte	$52
-	.byte	$78
-	.byte	$00
-	.byte	$52
-	.byte	$88
-	.byte	$05
-	.byte	$52
-	.byte	$98
-	.byte	$00
-	.byte	$52
-	.byte	$3C
-	.byte	$51
-	.byte	$52
-	.byte	$4C
-	.byte	$08
-	.byte	$52
-	.byte	$5C
-	.byte	$0B
-	.byte	$52
-	.byte	$6C
-	.byte	$09
-	.byte	$52
-	.byte	$7C
-	.byte	$00
-	.byte	$52
-	.byte	$8C
-	.byte	$05
-	.byte	$52
-	.byte	$9C
-	.byte	$00
-	.byte	$52
-	.byte	$B0
-	.byte	$3A
-	.byte	$52
-	.byte	$B4
-	.byte	$C1
-	.byte	$52
-	.byte	$A4
-	.byte	$1A
-	.byte	$52
-	.byte	$A0
-	.byte	$84
-	.byte	$52
-	.byte	$28
-	.byte	$F0
-	.byte	$61
-	.byte	$B0
-	.byte	$52
-	.byte	$52
-	.byte	$28
-	.byte	$00
-	.byte	$52
-	.byte	$A4
-	.byte	$14
-	.byte	$52
-	.byte	$A0
-	.byte	$BF
-	.byte	$52
-	.byte	$28
-	.byte	$F0
-	.byte	$61
-	.byte	$FF
-	.byte	$FF
-	.byte	$61
-	.byte	$FF
-	.byte	$FF
-	.byte	$61
-	.byte	$24
-	.byte	$0F
-	.byte	$52
-	.byte	$30
-	.byte	$71
-	.byte	$52
-	.byte	$40
-	.byte	$0F
-	.byte	$52
-	.byte	$50
-	.byte	$0B
-	.byte	$52
-	.byte	$60
-	.byte	$00
-	.byte	$52
-	.byte	$34
-	.byte	$72
-	.byte	$52
-	.byte	$44
-	.byte	$14
-	.byte	$52
-	.byte	$54
-	.byte	$0B
-	.byte	$52
-	.byte	$84
-	.byte	$07
-	.byte	$52
-	.byte	$38
-	.byte	$31
-	.byte	$52
-	.byte	$48
-	.byte	$0F
-	.byte	$52
-	.byte	$58
-	.byte	$0B
-	.byte	$52
-	.byte	$68
-	.byte	$00
-	.byte	$52
-	.byte	$3C
-	.byte	$32
-	.byte	$52
-	.byte	$4C
-	.byte	$19
-	.byte	$52
-	.byte	$6C
-	.byte	$00
-	.byte	$52
-	.byte	$8C
-	.byte	$07
-	.byte	$52
-	.byte	$B0
-	.byte	$07
-	.byte	$52
-	.byte	$B4
-	.byte	$C0
-	.byte	$52
-	.byte	$28
-	.byte	$00
-	.byte	$52
-	.byte	$A4
-	.byte	$04
-	.byte	$52
-	.byte	$A0
-	.byte	$BF
-	.byte	$52
-	.byte	$28
-	.byte	$F0
-	.byte	$61
-	.byte	$56
-	.byte	$0A
-	.byte	$52
-	.byte	$28
-	.byte	$00
-	.byte	$52
-	.byte	$A4
-	.byte	$0B
-	.byte	$52
-	.byte	$A0
-	.byte	$C5
-	.byte	$52
-	.byte	$28
-	.byte	$F0
-	.byte	$61
-	.byte	$56
-	.byte	$0A
-	.byte	$52
-	.byte	$28
-	.byte	$00
-	.byte	$52
-	.byte	$A4
-	.byte	$1C
-	.byte	$52
-	.byte	$A0
-	.byte	$BF
-	.byte	$52
-	.byte	$28
-	.byte	$F0
-	.byte	$61
-	.byte	$56
-	.byte	$0A
-	.byte	$52
-	.byte	$28
-	.byte	$00
-	.byte	$52
-	.byte	$A4
-	.byte	$23
-	.byte	$52
-	.byte	$A0
-	.byte	$C5
-	.byte	$52
-	.byte	$28
-	.byte	$F0
-	.byte	$61
-	.byte	$56
-	.byte	$0A
-	.byte	$52
-	.byte	$28
-	.byte	$00
-	.byte	$52
-	.byte	$A4
-	.byte	$0C
-	.byte	$52
-	.byte	$A0
-	.byte	$BF
-	.byte	$52
-	.byte	$28
-	.byte	$F0
-	.byte	$61
-	.byte	$56
-	.byte	$0A
-	.byte	$66
-	.byte	$47
-	.byte	$64
-	.byte	$33
-	.byte	$20
-	.byte	$00
-	.byte	$01
-	.byte	$00
-	.byte	$00
-	.byte	$7A
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$53
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$67
-	.byte	$00
-	.byte	$61
-	.byte	$00
-	.byte	$20
-	.byte	$00
-	.byte	$4D
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$67
-	.byte	$00
-	.byte	$61
-	.byte	$00
-	.byte	$20
-	.byte	$00
-	.byte	$44
-	.byte	$00
-	.byte	$72
-	.byte	$00
-	.byte	$69
-	.byte	$00
-	.byte	$76
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$20
-	.byte	$00
-	.byte	$2F
-	.byte	$00
-	.byte	$20
-	.byte	$00
-	.byte	$47
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$6E
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$73
-	.byte	$00
-	.byte	$69
-	.byte	$00
-	.byte	$73
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$44
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$6C
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$6B
-	.byte	$00
-	.byte	$27
-	.byte	$00
-	.byte	$73
-	.byte	$00
-	.byte	$20
-	.byte	$00
-	.byte	$44
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$66
-	.byte	$00
-	.byte	$6C
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$4D
-	.byte	$00
-	.byte	$61
-	.byte	$00
-	.byte	$73
-	.byte	$00
-	.byte	$6B
-	.byte	$00
-	.byte	$20
-	.byte	$00
-	.byte	$54
-	.byte	$00
-	.byte	$72
-	.byte	$00
-	.byte	$61
-	.byte	$00
-	.byte	$63
-	.byte	$00
-	.byte	$6B
-	.byte	$00
-	.byte	$65
-	.byte	$00
-	.byte	$72
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
 _song_pos:
 	.word	$003F
+
+.segment	"RODATA"
+
+S0001:
+	.byte	$41,$70,$70,$61,$72,$74,$75,$73,$20,$56,$47,$4D,$20,$50,$6C,$61
+	.byte	$79,$65,$72,$20,$56,$61,$73,$20,$76,$69,$74,$61,$00
+S0003:
+	.byte	$46,$6F,$72,$6D,$61,$74,$75,$6A,$69,$20,$42,$61,$6E,$6B,$79,$00
+S0002:
+	.byte	$5A,$61,$63,$69,$6E,$61,$6D,$20,$7A,$61,$70,$69,$73,$2E,$00
+S0004:
+	.byte	$53,$70,$6F,$75,$73,$74,$69,$6D,$20,$73,$6F,$6E,$67,$00
 
 .segment	"BSS"
 
@@ -627,6 +71,8 @@ _i2:
 _waitL:
 	.res	2,$00
 _waitH:
+	.res	2,$00
+_playing:
 	.res	2,$00
 _cmd:
 	.res	1,$00
@@ -707,21 +153,16 @@ L0009:	lda     (sp)
 .endproc
 
 ; ---------------------------------------------------------------
-; void __near__ main (void)
+; void __near__ PlayFromBank (void)
 ; ---------------------------------------------------------------
 
 .segment	"CODE"
 
-.proc	_main: near
+.proc	_PlayFromBank: near
 
 .segment	"CODE"
 
-	stz     _line
-	stz     _line+1
-	stz     _note
-	stz     _note+1
-	jsr     _lcd_init
-	jsr     _ym_init
+	jmp     L0059
 L0002:	jsr     _getByte
 	sta     _cmd
 	lda     _cmd
@@ -734,34 +175,36 @@ L0002:	jsr     _getByte
 	cmp     #$61
 	beq     L000A
 	cmp     #$62
-	jeq     L004F
-	cmp     #$63
 	jeq     L0050
-	cmp     #$70
+	cmp     #$63
 	jeq     L0051
-	cmp     #$71
+	cmp     #$66
+	jeq     L0058
+	cmp     #$70
 	jeq     L0052
-	cmp     #$72
+	cmp     #$71
 	jeq     L0053
-	cmp     #$73
+	cmp     #$72
 	jeq     L0054
-	cmp     #$74
+	cmp     #$73
 	jeq     L0055
-	cmp     #$75
+	cmp     #$74
 	jeq     L0056
-	bra     L0002
+	cmp     #$75
+	jeq     L0057
+	jmp     L0059
 L0007:	jsr     _getByte
-	bra     L0002
+	jmp     L0059
 L0008:	jsr     _getByte
 	jsr     pusha
 	jsr     _getByte
 	jsr     _ym_setreg
-	bra     L0002
+	jmp     L0059
 L0009:	jsr     _getByte
 	jsr     pusha
 	jsr     _getByte
 	jsr     _ym_setreg_A1
-	bra     L0002
+	jmp     L0059
 L000A:	jsr     _getByte
 	sta     _waitL
 	stx     _waitL+1
@@ -776,9 +219,9 @@ L000B:	lda     _i
 	lda     _waitH
 	ldx     _waitH+1
 	jsr     tosicmp
-	beq     L004D
-	jpl     L0002
-L004D:	stz     _i2
+	beq     L004E
+	jpl     L0059
+L004E:	stz     _i2
 	stz     _i2+1
 L0010:	lda     _i2
 	ldx     _i2+1
@@ -786,9 +229,9 @@ L0010:	lda     _i2
 	lda     _waitL
 	ldx     _waitL+1
 	jsr     tosicmp
-	beq     L004E
+	beq     L004F
 	bpl     L000D
-L004E:	jsr     _delay
+L004F:	jsr     _delay
 	inc     _i2
 	bne     L0010
 	inc     _i2+1
@@ -797,7 +240,7 @@ L000D:	inc     _i
 	bne     L000B
 	inc     _i+1
 	bra     L000B
-L004F:	stz     _i
+L0050:	stz     _i
 	stz     _i+1
 L0016:	lda     _i
 	cmp     #$E0
@@ -805,13 +248,13 @@ L0016:	lda     _i
 	sbc     #$02
 	bvc     L001A
 	eor     #$80
-L001A:	jpl     L0002
+L001A:	jpl     L0059
 	jsr     _delay
 	inc     _i
 	bne     L0016
 	inc     _i+1
 	bra     L0016
-L0050:	stz     _i
+L0051:	stz     _i
 	stz     _i+1
 L001D:	lda     _i
 	cmp     #$44
@@ -819,13 +262,13 @@ L001D:	lda     _i
 	sbc     #$03
 	bvc     L0021
 	eor     #$80
-L0021:	jpl     L0002
+L0021:	jpl     L0059
 	jsr     _delay
 	inc     _i
 	bne     L001D
 	inc     _i+1
 	bra     L001D
-L0051:	lda     #$01
+L0052:	lda     #$01
 	sta     _i
 	stz     _i+1
 L0024:	lda     _i
@@ -834,13 +277,13 @@ L0024:	lda     _i
 	sbc     #$00
 	bvc     L0028
 	eor     #$80
-L0028:	jpl     L0002
+L0028:	jpl     L0059
 	jsr     _delay
 	inc     _i
 	bne     L0024
 	inc     _i+1
 	bra     L0024
-L0052:	lda     #$01
+L0053:	lda     #$01
 	sta     _i
 	stz     _i+1
 L002B:	lda     _i
@@ -849,13 +292,13 @@ L002B:	lda     _i
 	sbc     #$00
 	bvc     L002F
 	eor     #$80
-L002F:	jpl     L0002
+L002F:	jpl     L0059
 	jsr     _delay
 	inc     _i
 	bne     L002B
 	inc     _i+1
 	bra     L002B
-L0053:	lda     #$01
+L0054:	lda     #$01
 	sta     _i
 	stz     _i+1
 L0032:	lda     _i
@@ -864,13 +307,13 @@ L0032:	lda     _i
 	sbc     #$00
 	bvc     L0036
 	eor     #$80
-L0036:	jpl     L0002
+L0036:	jpl     L0059
 	jsr     _delay
 	inc     _i
 	bne     L0032
 	inc     _i+1
 	bra     L0032
-L0054:	lda     #$01
+L0055:	lda     #$01
 	sta     _i
 	stz     _i+1
 L0039:	lda     _i
@@ -879,13 +322,13 @@ L0039:	lda     _i
 	sbc     #$00
 	bvc     L003D
 	eor     #$80
-L003D:	jpl     L0002
+L003D:	bpl     L0059
 	jsr     _delay
 	inc     _i
 	bne     L0039
 	inc     _i+1
 	bra     L0039
-L0055:	lda     #$01
+L0056:	lda     #$01
 	sta     _i
 	stz     _i+1
 L0040:	lda     _i
@@ -894,13 +337,13 @@ L0040:	lda     _i
 	sbc     #$00
 	bvc     L0044
 	eor     #$80
-L0044:	jpl     L0002
+L0044:	bpl     L0059
 	jsr     _delay
 	inc     _i
 	bne     L0040
 	inc     _i+1
 	bra     L0040
-L0056:	lda     #$01
+L0057:	lda     #$01
 	sta     _i
 	stz     _i+1
 L0047:	lda     _i
@@ -909,12 +352,65 @@ L0047:	lda     _i
 	sbc     #$00
 	bvc     L004B
 	eor     #$80
-L004B:	jpl     L0002
+L004B:	bpl     L0059
 	jsr     _delay
 	inc     _i
 	bne     L0047
 	inc     _i+1
 	bra     L0047
+L0058:	stz     _playing
+	stz     _playing+1
+L0059:	lda     #$01
+	sta     _playing
+	jmp     L0002
+
+.endproc
+
+; ---------------------------------------------------------------
+; void __near__ main (void)
+; ---------------------------------------------------------------
+
+.segment	"CODE"
+
+.proc	_main: near
+
+.segment	"CODE"
+
+	lda     #<(S0001)
+	ldx     #>(S0001)
+	jsr     _print_f
+	stz     _line
+	stz     _line+1
+	stz     _note
+	stz     _note+1
+	jsr     _lcd_init
+	jsr     _ym_init
+L0002:	jsr     _acia_getc
+	sta     _c
+	cmp     #$46
+	beq     L0008
+	cmp     #$50
+	beq     L0009
+	cmp     #$57
+	bne     L0002
+	lda     #<(S0002)
+	ldx     #>(S0002)
+	jsr     _print_f
+	jsr     _write_to_BANK
+	bra     L0002
+L0008:	lda     #<(S0003)
+	ldx     #>(S0003)
+	jsr     _print_f
+	jsr     _format_bank
+	bra     L0002
+L0009:	lda     #<(S0004)
+	ldx     #>(S0004)
+	jsr     _print_f
+	lda     #$01
+	sta     _playing
+	stz     _playing+1
+	jsr     _PlayFromBank
+	bra     L0002
 
 .endproc
 

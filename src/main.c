@@ -6,9 +6,9 @@
 #include "acia.h"
 #include "lcd.h"
 #include "ym2612.h"
+#include "utils.h"
 
-
-#include "song.h"
+//#include "song.h"
 //#include "vdp_low.h"
 //#include "test.h"
 //#include "bank.h"
@@ -28,6 +28,7 @@ int i;
 int i2;
 int waitL;
 int waitH;
+int playing;
 char cmd;
 
 void lcd_put_text(char * s){
@@ -55,21 +56,16 @@ void print_f(char * s){
 
 //char getByte(){
 //  ++song_pos;
+//  if (song_pos == 0x4000){
+//    song_pos = 0;
+//    switch_bank();
+//  }
   //acia_putc(song[song_pos]);
   //delay();
 //  return song[song_pos];
 //}
-
-
-void main(void) {
-  line = 0;
-  note = 0;
-  lcd_init();
-  ym_init();
-
-
-
-while(1){
+void PlayFromBank(){
+	while(playing = 1){
     //delay();
     cmd = getByte();
     switch (cmd) {
@@ -132,8 +128,41 @@ while(1){
             delay();
           }
           break;
+      case 0x66:
+        playing = 0;
+      break;
+
     }
 }
 
 
+}
+
+
+void main(void) {
+  print_f("Appartus VGM Player Vas vita");
+  line = 0;
+  note = 0;
+  lcd_init();
+  ym_init();
+  while(1){
+    c = acia_getc();
+  switch (c){
+    case 'W':
+      print_f("Zacinam zapis.");
+      write_to_BANK();
+    break;
+
+    case 'F':
+      print_f("Formatuji Banky");
+      format_bank();
+    break;
+
+    case 'P':
+      print_f("Spoustim song");
+      playing = 1;
+      PlayFromBank();
+    break;
+  }
+  }
 }

@@ -146,7 +146,15 @@ _ym_write_reg_A1:   PHA
 	inc     _song_pos
 	bne     L0002
 	inc     _song_pos+1
-L0002:	lda     #<(BANKDISK)
+L0002:	lda     _song_pos+1
+	cmp     #$40
+	bne     L0003
+	lda     _song_pos
+	bne     L0003
+	stz     _song_pos
+	stz     _song_pos+1
+	jsr     _switch_bank
+L0003:	lda     #<(BANKDISK)
 	sta     ptr1
 	lda     #>(BANKDISK)
 	clc
@@ -155,7 +163,6 @@ L0002:	lda     #<(BANKDISK)
 	ldy     _song_pos
 	ldx     #$00
 	lda     (ptr1),y
-  ;sta ACIA_DATA
 	rts
 
 .endproc
