@@ -7,6 +7,8 @@
 #include "lcd.h"
 #include "ym2612.h"
 
+
+#include "song.h"
 //#include "vdp_low.h"
 //#include "test.h"
 //#include "bank.h"
@@ -21,6 +23,12 @@
 char c;
 int line;
 int note;
+int song_pos = 0x3F;
+int i;
+int i2;
+int waitL;
+int waitH;
+char cmd;
 
 void lcd_put_text(char * s){
   char y = 0x80;
@@ -45,8 +53,12 @@ void print_f(char * s){
 }
 
 
-
-
+//char getByte(){
+//  ++song_pos;
+  //acia_putc(song[song_pos]);
+  //delay();
+//  return song[song_pos];
+//}
 
 
 void main(void) {
@@ -55,61 +67,73 @@ void main(void) {
   lcd_init();
   ym_init();
 
-  /* YM2612 Test code */
-ym_setreg(0x22, 0x00); // LFO off
-ym_setreg(0x27, 0x00); // Note off (channel 0)
-ym_setreg(0x28, 0x01); // Note off (channel 1)
-ym_setreg(0x28, 0x02); // Note off (channel 2)
-ym_setreg(0x28, 0x04); // Note off (channel 3)
-ym_setreg(0x28, 0x05); // Note off (channel 4)
-ym_setreg(0x28, 0x06); // Note off (channel 5)
-ym_setreg(0x2B, 0x00); // DAC off
-ym_setreg(0x30, 0x71); //
-ym_setreg(0x34, 0x0D); //
-ym_setreg(0x38, 0x33); //
-ym_setreg(0x3C, 0x01); // DT1/MUL
-ym_setreg(0x40, 0x23); //
-ym_setreg(0x44, 0x2D); //
-ym_setreg(0x48, 0x26); //
-ym_setreg(0x4C, 0x00); // Total level
-ym_setreg(0x50, 0x5F); //
-ym_setreg(0x54, 0x99); //
-ym_setreg(0x58, 0x5F); //
-ym_setreg(0x5C, 0x94); // RS/AR
-ym_setreg(0x60, 0x05); //
-ym_setreg(0x64, 0x05); //
-ym_setreg(0x68, 0x05); //
-ym_setreg(0x6C, 0x07); // AM/D1R
-ym_setreg(0x70, 0x02); //
-ym_setreg(0x74, 0x02); //
-ym_setreg(0x78, 0x02); //
-ym_setreg(0x7C, 0x02); // D2R
-ym_setreg(0x80, 0x11); //
-ym_setreg(0x84, 0x11); //
-ym_setreg(0x88, 0x11); //
-ym_setreg(0x8C, 0xA6); // D1L/RR
-ym_setreg(0x90, 0x00); //
-ym_setreg(0x94, 0x00); //
-ym_setreg(0x98, 0x00); //
-ym_setreg(0x9C, 0x00); // Proprietary
-ym_setreg(0xB0, 0x32); // Feedback/algorithm
-ym_setreg(0xB4, 0xC0); // Both speakers on
-ym_setreg(0x28, 0x00); // Key off
-ym_setreg(0xA4, 0x22);	//
-ym_setreg(0xA0, 0x69); // Set frequency
 
-  while(1)
-  {
-    c = acia_getc();
-    print_f("Volove");
-    if (note == 0){
-      ym_setreg(0x28,c); // Key on
-      note = 1;
-    } else {
-      ym_setreg(0x28,0); // Key on
-      note = 0;
+
+while(1){
+    //delay();
+    cmd = getByte();
+    switch (cmd) {
+      case 0x50:
+        getByte();
+        break;
+      case 0x52:
+        ym_setreg(getByte(),getByte());
+        break;
+      case 0x53:
+        ym_setreg_A1(getByte(),getByte());
+        break;
+      case 0x61:
+        waitL = getByte();
+        waitH = getByte();
+        for (i=0; i <= waitH; ++i){
+          for (i2 = 0; i2 <= waitL; ++i2){
+            delay();
+          }
+        }
+        break;
+      case 0x62:
+        for (i = 0; i <= 735; ++i){
+          delay();
+        }
+        break;
+      case 0x63:
+        for (i = 0; i <= 835; ++i){
+          delay();
+        }
+          break;
+      case 0x70:
+        for (i=1; i <= 1; ++i){
+          delay();
+        }
+        break;
+      case 0x71:
+
+          for (i=1; i <= 2; ++i){
+            delay();
+          }
+          break;
+      case 0x72:
+          for (i=1; i <= 3; ++i){
+            delay();
+          }
+          break;
+      case 0x73:
+          for (i=1; i <= 4; ++i){
+            delay();
+          }
+          break;
+      case 0x74:
+          for (i=1; i <= 5; ++i){
+            delay();
+          }
+          break;
+      case 0x75:
+          for (i=1; i <= 5; ++i){
+            delay();
+          }
+          break;
     }
+}
 
-  }
 
 }
