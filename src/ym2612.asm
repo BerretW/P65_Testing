@@ -21,14 +21,22 @@
 .export _ym_setreg
 .export _ym_setreg_A1
 .export _getByte
+.export _set_song_pos
 .import _acia_putc
 
+
 .data
+
 _song_pos:
 	.word	$003F
 .code
 
-
+_set_song_pos:
+						STA _song_pos
+						LDA #0
+						STA _song_pos + 1
+						STX _song_pos + 1
+						RTS
 _ym_setreg:
             jsr pusha
             ldy #$01

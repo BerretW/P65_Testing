@@ -23,11 +23,11 @@
 char c;
 int line;
 int note;
-int song_pos = 0x3F;
+
 int i;
 int i2;
-int waitL;
-int waitH;
+int CharL;
+int CharH;
 int playing;
 char cmd;
 
@@ -65,24 +65,42 @@ void print_f(char * s){
 //  return song[song_pos];
 //}
 void PlayFromBank(){
-	while(playing = 1){
+	while(playing == 1){
     //delay();
     cmd = getByte();
     switch (cmd) {
       case 0x50:
-        getByte();
+        CharL = getByte();
+        delay();
         break;
       case 0x52:
-        ym_setreg(getByte(),getByte());
+        CharL = getByte();
+        CharH = getByte();
+        ym_setreg(CharL,CharH);
+        //acia_puts("Wr_A0_");
+        //acia_putc(CharL);
+        //acia_putc(CharH);
+        //acia_put_newline();
         break;
       case 0x53:
-        ym_setreg_A1(getByte(),getByte());
+      CharL = getByte();
+      CharH = getByte();
+      ym_setreg_A1(CharL,CharH);
+      //acia_puts("Wr_A1_");
+      //acia_putc(CharL);
+      //acia_putc(CharH);
+      //acia_put_newline();
         break;
       case 0x61:
-        waitL = getByte();
-        waitH = getByte();
-        for (i=0; i <= waitH; ++i){
-          for (i2 = 0; i2 <= waitL; ++i2){
+        CharL = getByte();
+        CharH = getByte();
+        //acia_puts("Wait ");
+        //acia_putc(CharL);
+        //acia_putc(CharH);
+        //acia_puts("H ms");
+        //acia_put_newline();
+        for (i=0; i <= CharH; ++i){
+          for (i2 = 0; i2 <= CharL; ++i2){
             delay();
           }
         }
@@ -124,12 +142,64 @@ void PlayFromBank(){
           }
           break;
       case 0x75:
-          for (i=1; i <= 5; ++i){
+          for (i=1; i <= 6; ++i){
             delay();
           }
           break;
+      case 0x76:
+          for (i=1; i <= 7; ++i){
+            delay();
+          }
+          break;
+      case 0x77:
+          for (i=1; i <= 8; ++i){
+            delay();
+          }
+          break;
+          case 0x78:
+              for (i=1; i <= 9; ++i){
+                delay();
+              }
+              break;
+          case 0x79:
+              for (i=1; i <= 10; ++i){
+                delay();
+              }
+              break;
+          case 0x7A:
+              for (i=1; i <= 11; ++i){
+                delay();
+              }
+              break;
+          case 0x7B:
+              for (i=1; i <= 12; ++i){
+                delay();
+              }
+              break;
+          case 0x7C:
+              for (i=1; i <= 13; ++i){
+                delay();
+              }
+              break;
+          case 0x7D:
+              for (i=1; i <= 14; ++i){
+                delay();
+              }
+              break;
+          case 0x7E:
+              for (i=1; i <= 15; ++i){
+                delay();
+              }
+              break;
+          case 0x7F:
+            for (i=1; i <= 16; ++i){
+              delay();
+            }
+            break;
       case 0x66:
         playing = 0;
+        set_song_pos(0x003F);
+        acia_puts("Konec");
       break;
 
     }
@@ -160,6 +230,7 @@ void main(void) {
 
     case 'P':
       print_f("Spoustim song");
+      set_song_pos(0x003F);
       playing = 1;
       PlayFromBank();
     break;
