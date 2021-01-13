@@ -19,7 +19,6 @@
 //#include "sprite.h"
 //#include "copyshort.h"
 
-//#include "spi.h"
 
 
 void main(void) {
