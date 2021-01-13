@@ -1,0 +1,16 @@
+extern	void	CHROUT	(char c);
+extern	char	CHRIN	();
+extern	void	PRNTLN	(const char * s);
+extern	void	PRNT	(const char * s);
+extern	void	PRNL	();
+extern	void	SETBNK	(char c);
+extern	char	GETBNK	();
+extern	void	SNINIT	();
+extern	void	SNWRT	(char d);
+extern	void	SHDLY	();
+extern	void	RST	();
+extern	char	KBINPUT	();
+extern	char	KBGET	();
+extern	char	KBSCAN	();
+extern	void	KBINIT	();
+extern	char	INPUT	();

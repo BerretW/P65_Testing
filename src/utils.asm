@@ -44,7 +44,7 @@ _write_to_BANK:
 					STA ptr1
 					STX ptr1 + 1
 
-@write_BANK:		JSR _acia_getc
+@write_BANK:		JSR _CHRIN
 					;JSR _lcd_putc
 					STA (ptr1), Y
 					INY
