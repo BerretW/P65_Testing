@@ -8,26 +8,22 @@
 ; Checks for a BRK instruction and returns from all valid interrupts.
 
 ;.import   _stop
+.setcpu		"65C02"                             ; Force 65C02 assembly mode
 
 .export   _irq_int, _nmi_int
 .autoimport on
 .segment  "CODE"
 
-.PC02                             ; Force 65C02 assembly mode
 
 ; ---------------------------------------------------------------------------
 ; Non-maskable interrupt (NMI) service routine
 
-_nmi_int:   CLI
+_nmi_int:
             RTI                    ; Return from all NMI interrupts
 
 ; ---------------------------------------------------------------------------
 ; Maskable interrupt (IRQ) service routine
-_irq_int:   SEI
-            PHA
-            LDA #$41
-            jsr _CHROUT
-            PLA
+_irq_int:
             RTI
 
 ;_irq_int1:  PHX                    ; Save X register contents to stack
@@ -42,8 +38,7 @@ _irq_int:   SEI
 ; ---------------------------------------------------------------------------
 ; IRQ detected, return
 
-irq:       PLA                    ; Restore accumulator contents
-           PLX                    ; Restore X register contents
+irq:                              ; Restore X register contents
            RTI                    ; Return from all IRQ interrupts
 
 ; ---------------------------------------------------------------------------

@@ -3,24 +3,22 @@ Modules list:
 main.o:
     CODE              Offs=000000  Size=000019  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=00003D  Align=00001  Fill=0000
-utils.o:
-    CODE              Offs=000019  Size=00007F  Align=00001  Fill=0000
 kernel_c_lib.o:
-    CODE              Offs=000098  Size=000030  Align=00001  Fill=0000
+    CODE              Offs=000019  Size=000030  Align=00001  Fill=0000
 interrupts.o:
-    CODE              Offs=0000C8  Size=00000E  Align=00001  Fill=0000
+    CODE              Offs=000049  Size=000003  Align=00001  Fill=0000
 vectors.o:
     VECTORS           Offs=000000  Size=000006  Align=00001  Fill=0000
 ..\library\p65.lib(condes.o):
-    CODE              Offs=0000D6  Size=00000C  Align=00001  Fill=0000
+    CODE              Offs=00004C  Size=00000C  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000025  Align=00001  Fill=0000
     ONCE              Offs=000000  Size=00000C  Align=00001  Fill=0000
 ..\library\p65.lib(copydata.o):
-    CODE              Offs=0000E2  Size=00002D  Align=00001  Fill=0000
+    CODE              Offs=000058  Size=00002D  Align=00001  Fill=0000
 ..\library\p65.lib(crt0.o):
     STARTUP           Offs=000000  Size=00001C  Align=00001  Fill=0000
 ..\library\p65.lib(zerobss.o):
-    CODE              Offs=00010F  Size=000023  Align=00001  Fill=0000
+    CODE              Offs=000085  Size=000023  Align=00001  Fill=0000
 ..\library\p65.lib(zeropage.o):
     ZEROPAGE          Offs=000000  Size=00001A  Align=00001  Fill=0000
 
@@ -33,55 +31,52 @@ ZEROPAGE              000000  000019  00001A  00001
 DATA                  000200  000224  000025  00001
 STARTUP               006025  006040  00001C  00001
 ONCE                  006041  00604C  00000C  00001
-CODE                  00604D  00617E  000132  00001
-RODATA                00617F  0061BB  00003D  00001
+CODE                  00604D  0060F4  0000A8  00001
+RODATA                0060F5  006131  00003D  00001
 VECTORS               007FFA  007FFF  000006  00001
 
 
 Exports list by name:
 ---------------------
-_CHRIN                    0060E8 RLA    _CHROUT                   0060E5 RLA    
-_KBINPUT                  006106 RLA    _PRNL                     0060F1 RLA    
-_PRNTLN                   0060EB RLA    __BSS_RUN__               000225 RLA    
-__BSS_SIZE__              000000 REA    __CONSTRUCTOR_COUNT__     000000 REA    
-__CONSTRUCTOR_TABLE__     006041 RLA    __DATA_LOAD__             006000 RLA    
-__DATA_RUN__              000200 RLA    __DATA_SIZE__             000025 REA    
-__DESTRUCTOR_COUNT__      000000 REA    __DESTRUCTOR_TABLE__      006041 RLA    
-__RAM_SIZE__              005DFF REA    __RAM_START__             000200 RLA    
-__STARTUP__               000001 REA    _init                     006025 RLA    
-_irq_int                  006117 RLA    _main                     00604D RLA    
-_nmi_int                  006115 RLA    copydata                  00612F RLA    
-donelib                   006123 RLA    initlib                   006041 RLA    
-ptr1                      000008 RLZ    ptr2                      00000A RLZ    
-sp                        000000 RLZ    tmp1                      000010 RLZ    
-zerobss                   00615C RLA    
+_CHROUT                   006066 RLA    _KBINPUT                  006087 RLA    
+_PRNL                     006072 RLA    _PRNTLN                   00606C RLA    
+__BSS_RUN__               000225 RLA    __BSS_SIZE__              000000 REA    
+__CONSTRUCTOR_COUNT__     000000 REA    __CONSTRUCTOR_TABLE__     006041 RLA    
+__DATA_LOAD__             006000 RLA    __DATA_RUN__              000200 RLA    
+__DATA_SIZE__             000025 REA    __DESTRUCTOR_COUNT__      000000 REA    
+__DESTRUCTOR_TABLE__      006041 RLA    __RAM_SIZE__              005DFF REA    
+__RAM_START__             000200 RLA    __STARTUP__               000001 REA    
+_init                     006025 RLA    _irq_int                  006097 RLA    
+_main                     00604D RLA    _nmi_int                  006096 RLA    
+copydata                  0060A5 RLA    donelib                   006099 RLA    
+initlib                   006041 RLA    ptr1                      000008 RLZ    
+ptr2                      00000A RLZ    sp                        000000 RLZ    
+tmp1                      000010 RLZ    zerobss                   0060D2 RLA    
+
 
 
 Exports list by value:
 ----------------------
-__BSS_SIZE__              000000 REA    __CONSTRUCTOR_COUNT__     000000 REA    
-__DESTRUCTOR_COUNT__      000000 REA    sp                        000000 RLZ    
+__BSS_SIZE__              000000 REA    __DESTRUCTOR_COUNT__      000000 REA    
+sp                        000000 RLZ    __CONSTRUCTOR_COUNT__     000000 REA    
 __STARTUP__               000001 REA    ptr1                      000008 RLZ    
 ptr2                      00000A RLZ    tmp1                      000010 RLZ    
 __DATA_SIZE__             000025 REA    __DATA_RUN__              000200 RLA    
 __RAM_START__             000200 RLA    __BSS_RUN__               000225 RLA    
 __RAM_SIZE__              005DFF REA    __DATA_LOAD__             006000 RLA    
-_init                     006025 RLA    initlib                   006041 RLA    
-__CONSTRUCTOR_TABLE__     006041 RLA    __DESTRUCTOR_TABLE__      006041 RLA    
-_main                     00604D RLA    _CHROUT                   0060E5 RLA    
-_CHRIN                    0060E8 RLA    _PRNTLN                   0060EB RLA    
-_PRNL                     0060F1 RLA    _KBINPUT                  006106 RLA    
-_nmi_int                  006115 RLA    _irq_int                  006117 RLA    
-donelib                   006123 RLA    copydata                  00612F RLA    
-zerobss                   00615C RLA    
+_init                     006025 RLA    __DESTRUCTOR_TABLE__      006041 RLA    
+initlib                   006041 RLA    __CONSTRUCTOR_TABLE__     006041 RLA    
+_main                     00604D RLA    _CHROUT                   006066 RLA    
+_PRNTLN                   00606C RLA    _PRNL                     006072 RLA    
+_KBINPUT                  006087 RLA    _nmi_int                  006096 RLA    
+_irq_int                  006097 RLA    donelib                   006099 RLA    
+copydata                  0060A5 RLA    zerobss                   0060D2 RLA    
+
 
 
 Imports list:
 -------------
-_CHRIN (kernel_c_lib.o):
-    utils.o                   utils.asm(115)
 _CHROUT (kernel_c_lib.o):
-    interrupts.o              interrupts.asm(53)
     main.o                    main.s(14)
 _KBINPUT (kernel_c_lib.o):
     main.o                    main.s(17)
@@ -130,7 +125,6 @@ initlib (condes.o):
 ptr1 (zeropage.o):
     copydata.o                common/copydata.s(9)
     zerobss.o                 common/zerobss.s(9)
-    utils.o                   utils.asm(12)
 ptr2 (zeropage.o):
     copydata.o                common/copydata.s(9)
 sp (zeropage.o):
