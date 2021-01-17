@@ -80,7 +80,7 @@ print:	LDA #$41
 	            STA DUARTMRA
 	            LDA #$60          ; Set timer mode external clock x1
 	            STA DUARTACR
-	            LDA #$CC          ; Set TX/RX Baud to 230,400 (115200 with 1.8432Mhz Oscillator)
+	            LDA #$CC          ; Set TX/RX Baud to 250 000
 	            STA DUARTCSRA
 	            LDA #$0A          ; Enable Timer/RxRDYA Interrupts
 	            STA DUARTIMR
