@@ -1,19 +1,20 @@
-CHROUT	:=	$FF00	;	void	;	print CHAR from regA
-CHRIN	:=	$FF03	;	char	;	get CHAR from buffer to regA
-PRNTLN	:=	$FF06	;	void	;	put new line and a string with start address in regA and regX "lda #<(STRING),ldx #>(STRING),jsr PRNTLN"
-PRNT	:=	$FF09	;	void	;	put a string with start address in regA and regX "lda #<(STRING),ldx #>(STRING),jsr PRNTLN"
-PRNL	:=	$FF0C	;	void	;
-SETBNK	:=	$FF0F	;	void	;	set bank to number from regA
-GETBNK	:=	$FF12	;	char	;	get bank number to regA
-SNINIT	:=	$FF15	;	void	;	Initialize SN76489 chipwith mute
-SNWRT	:=	$FF18	;	void	;	write data from regA to sn76489
-SHDLY	:=	$FF1B	;	void	;	very short delay
-RST	:=	$FF1E	;	void	;	reset to bootloader
-KBINPUT	:=	$FF21	;	char	;
-KBGET	:=	$FF24	;	char	;
-KBSCAN	:=	$FF27	;	char	;
-KBINIT	:=	$FF2A	;	void	;
-INPUT	:=	$FF2D	;	char	;
+CHROUT	:=	$FF00	;	VOID	;	print CHAR from regA
+CHRIN	:=	$FF03	;	CHAR	;	get CHAR from buffer to regA
+PRNTLN	:=	$FF06	;	VOID	;	put new line and a string with start address in regA and regX "lda #<(STRING),ldx #>(STRING),jsr PRNTLN"
+PRNT	:=	$FF09	;	VOID	;	put a string with start address in regA and regX "lda #<(STRING),ldx #>(STRING),jsr PRNTLN"
+PRNL	:=	$FF0C	;	VOID	;
+SETBNK	:=	$FF0F	;	VOID	;	set bank to number from regA
+GETBNK	:=	$FF12	;	CHAR	;	get bank number to regA
+SNINIT	:=	$FF15	;	VOID	;	Initialize SN76489 chipwith mute
+SNWRT	:=	$FF18	;	VOID	;	write data from regA to sn76489
+SHDLY	:=	$FF1B	;	VOID	;	very short delay
+RST	:=	$FF1E	;	VOID	;	reset to bootloader
+KBINPUT	:=	$FF21	;	CHAR	;
+KBGET	:=	$FF24	;	CHAR	;
+KBSCAN	:=	$FF27	;	CHAR	;
+KBINIT	:=	$FF2A	;	VOID	;
+INPUT	:=	$FF2D	;	CHAR	;
+DLY	:=	$FF30	;	VOID	;
 
 .export	_CHROUT
 .export	_CHRIN
@@ -31,6 +32,8 @@ INPUT	:=	$FF2D	;	char	;
 .export	_KBSCAN
 .export	_KBINIT
 .export	_INPUT
+.export	_DLY
+
 
 
 
@@ -54,3 +57,4 @@ _KBGET: 	JMP	KBGET
 _KBSCAN: 	JMP	KBSCAN
 _KBINIT: 	JMP	KBINIT
 _INPUT: 	JMP	INPUT
+_DLY: 	JMP	DLY

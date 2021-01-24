@@ -1,89 +1,86 @@
 Modules list:
 -------------
 main.o:
-    CODE              Offs=000000  Size=000019  Align=00001  Fill=0000
-    RODATA            Offs=000000  Size=00003D  Align=00001  Fill=0000
+    CODE              Offs=000000  Size=00001C  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=00003E  Align=00001  Fill=0000
+duart.o:
+    CODE              Offs=00001C  Size=000073  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000002  Align=00001  Fill=0000
 kernel_c_lib.o:
-    CODE              Offs=000019  Size=000030  Align=00001  Fill=0000
+    CODE              Offs=00008F  Size=000033  Align=00001  Fill=0000
 interrupts.o:
-    CODE              Offs=000049  Size=000003  Align=00001  Fill=0000
+    CODE              Offs=0000C2  Size=000003  Align=00001  Fill=0000
 vectors.o:
     VECTORS           Offs=000000  Size=000006  Align=00001  Fill=0000
 ..\library\p65.lib(condes.o):
-    CODE              Offs=00004C  Size=00000C  Align=00001  Fill=0000
+    CODE              Offs=0000C5  Size=00000C  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000025  Align=00001  Fill=0000
     ONCE              Offs=000000  Size=00000C  Align=00001  Fill=0000
 ..\library\p65.lib(copydata.o):
-    CODE              Offs=000058  Size=00002D  Align=00001  Fill=0000
+    CODE              Offs=0000D1  Size=00002D  Align=00001  Fill=0000
 ..\library\p65.lib(crt0.o):
     STARTUP           Offs=000000  Size=00001C  Align=00001  Fill=0000
 ..\library\p65.lib(zerobss.o):
-    CODE              Offs=000085  Size=000023  Align=00001  Fill=0000
+    CODE              Offs=0000FE  Size=000023  Align=00001  Fill=0000
 ..\library\p65.lib(zeropage.o):
-    ZEROPAGE          Offs=000000  Size=00001A  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000002  Size=00001A  Align=00001  Fill=0000
 
 
 Segment list:
 -------------
 Name                   Start     End    Size  Align
 ----------------------------------------------------
-ZEROPAGE              000000  000019  00001A  00001
+ZEROPAGE              000000  00001B  00001C  00001
 DATA                  000200  000224  000025  00001
 STARTUP               006025  006040  00001C  00001
 ONCE                  006041  00604C  00000C  00001
-CODE                  00604D  0060F4  0000A8  00001
-RODATA                0060F5  006131  00003D  00001
+CODE                  00604D  00616D  000121  00001
+RODATA                00616E  0061AB  00003E  00001
 VECTORS               007FFA  007FFF  000006  00001
 
 
 Exports list by name:
 ---------------------
-_CHROUT                   006066 RLA    _KBINPUT                  006087 RLA    
-_PRNL                     006072 RLA    _PRNTLN                   00606C RLA    
-__BSS_RUN__               000225 RLA    __BSS_SIZE__              000000 REA    
-__CONSTRUCTOR_COUNT__     000000 REA    __CONSTRUCTOR_TABLE__     006041 RLA    
-__DATA_LOAD__             006000 RLA    __DATA_RUN__              000200 RLA    
-__DATA_SIZE__             000025 REA    __DESTRUCTOR_COUNT__      000000 REA    
-__DESTRUCTOR_TABLE__      006041 RLA    __RAM_SIZE__              005DFF REA    
-__RAM_START__             000200 RLA    __STARTUP__               000001 REA    
-_init                     006025 RLA    _irq_int                  006097 RLA    
-_main                     00604D RLA    _nmi_int                  006096 RLA    
-copydata                  0060A5 RLA    donelib                   006099 RLA    
-initlib                   006041 RLA    ptr1                      000008 RLZ    
-ptr2                      00000A RLZ    sp                        000000 RLZ    
-tmp1                      000010 RLZ    zerobss                   0060D2 RLA    
-
+_CHROUT                   0060DC RLA    __BSS_RUN__               000225 RLA    
+__BSS_SIZE__              000000 REA    __CONSTRUCTOR_COUNT__     000000 REA    
+__CONSTRUCTOR_TABLE__     006041 RLA    __DATA_LOAD__             006000 RLA    
+__DATA_RUN__              000200 RLA    __DATA_SIZE__             000025 REA    
+__DESTRUCTOR_COUNT__      000000 REA    __DESTRUCTOR_TABLE__      006041 RLA    
+__RAM_SIZE__              005DFF REA    __RAM_START__             000200 RLA    
+__STARTUP__               000001 REA    _duart_getc               0060B6 RLA    
+_duart_init               006069 RLA    _duart_put_newline        00609C RLA    
+_duart_puts               0060C1 RLA    _init                     006025 RLA    
+_irq_int                  006110 RLA    _main                     00604D RLA    
+_nmi_int                  00610F RLA    copydata                  00611E RLA    
+donelib                   006112 RLA    initlib                   006041 RLA    
+ptr1                      00000A RLZ    ptr2                      00000C RLZ    
+sp                        000002 RLZ    tmp1                      000012 RLZ    
+zerobss                   00614B RLA    
 
 
 Exports list by value:
 ----------------------
-__BSS_SIZE__              000000 REA    __DESTRUCTOR_COUNT__      000000 REA    
-sp                        000000 RLZ    __CONSTRUCTOR_COUNT__     000000 REA    
-__STARTUP__               000001 REA    ptr1                      000008 RLZ    
-ptr2                      00000A RLZ    tmp1                      000010 RLZ    
+__CONSTRUCTOR_COUNT__     000000 REA    __DESTRUCTOR_COUNT__      000000 REA    
+__BSS_SIZE__              000000 REA    __STARTUP__               000001 REA    
+sp                        000002 RLZ    ptr1                      00000A RLZ    
+ptr2                      00000C RLZ    tmp1                      000012 RLZ    
 __DATA_SIZE__             000025 REA    __DATA_RUN__              000200 RLA    
 __RAM_START__             000200 RLA    __BSS_RUN__               000225 RLA    
 __RAM_SIZE__              005DFF REA    __DATA_LOAD__             006000 RLA    
-_init                     006025 RLA    __DESTRUCTOR_TABLE__      006041 RLA    
-initlib                   006041 RLA    __CONSTRUCTOR_TABLE__     006041 RLA    
-_main                     00604D RLA    _CHROUT                   006066 RLA    
-_PRNTLN                   00606C RLA    _PRNL                     006072 RLA    
-_KBINPUT                  006087 RLA    _nmi_int                  006096 RLA    
-_irq_int                  006097 RLA    donelib                   006099 RLA    
-copydata                  0060A5 RLA    zerobss                   0060D2 RLA    
-
+_init                     006025 RLA    initlib                   006041 RLA    
+__CONSTRUCTOR_TABLE__     006041 RLA    __DESTRUCTOR_TABLE__      006041 RLA    
+_main                     00604D RLA    _duart_init               006069 RLA    
+_duart_put_newline        00609C RLA    _duart_getc               0060B6 RLA    
+_duart_puts               0060C1 RLA    _CHROUT                   0060DC RLA    
+_nmi_int                  00610F RLA    _irq_int                  006110 RLA    
+donelib                   006112 RLA    copydata                  00611E RLA    
+zerobss                   00614B RLA    
 
 
 Imports list:
 -------------
 _CHROUT (kernel_c_lib.o):
-    main.o                    main.s(14)
-_KBINPUT (kernel_c_lib.o):
-    main.o                    main.s(17)
-_PRNL (kernel_c_lib.o):
-    main.o                    main.s(16)
-_PRNTLN (kernel_c_lib.o):
-    main.o                    main.s(15)
+    main.o                    main.s(18)
 __BSS_RUN__ ([linker generated]):
     zerobss.o                 common/zerobss.s(8)
 __BSS_SIZE__ ([linker generated]):
@@ -108,6 +105,14 @@ __RAM_START__ ([linker generated]):
     crt0.o                    .\src\crt0.s(11)
 __STARTUP__ (crt0.o):
     main.o                    main.s(13)
+_duart_getc (duart.o):
+    main.o                    main.s(15)
+_duart_init (duart.o):
+    main.o                    main.s(14)
+_duart_put_newline (duart.o):
+    main.o                    main.s(17)
+_duart_puts (duart.o):
+    main.o                    main.s(16)
 _init (crt0.o):
     vectors.o                 vectors.asm(7)
 _irq_int (interrupts.o):

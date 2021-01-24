@@ -1,9 +1,9 @@
-extern	void	CHROUT	(char c);
+extern	void	CHROUT	(char d);
 extern	char	CHRIN	();
 extern	void	PRNTLN	(const char * s);
 extern	void	PRNT	(const char * s);
 extern	void	PRNL	();
-extern	void	SETBNK	(char c);
+extern	void	SETBNK	(char d);
 extern	char	GETBNK	();
 extern	void	SNINIT	();
 extern	void	SNWRT	(char d);
@@ -14,3 +14,4 @@ extern	char	KBGET	();
 extern	char	KBSCAN	();
 extern	void	KBINIT	();
 extern	char	INPUT	();
+extern	void	DLY	();

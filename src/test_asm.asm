@@ -16,7 +16,7 @@
 	.import		_KBINPUT
 	.export		_main
 
-	DUART        = $C100
+	DUART        = $CF30
 	DUARTMRA     = DUART
 	DUARTSRA     = DUART+$1
 	DUARTCSRA    = DUART+$1
@@ -61,11 +61,10 @@ _main:
 	jsr     _PRNL
 	JSR DUARTINIT
 
-print:	LDA #$41
-	JSR DUARTTX
-	LDA #$21
-	JSR _CHROUT
-	JMP print
+print:	JSR _CHRIN
+				JSR DUARTTX
+				JSR _CHROUT
+				JMP print
 
 
 	DUARTINIT:  LDA #$B0          ; Reset MRA Pointer to $00
@@ -76,18 +75,18 @@ print:	LDA #$41
 	            STA DUARTMRA
 	            LDA #$01
 	            STA DUARTSOPR
-	            LDA #$07          ; Enable TX CTS Control, 1 Stop Bit
-	            STA DUARTMRA
+	            ;LDA #$07          ; Enable TX CTS Control, 1 Stop Bit
+	            ;STA DUARTMRA
 	            LDA #$60          ; Set timer mode external clock x1
 	            STA DUARTACR
 	            LDA #$CC          ; Set TX/RX Baud to 250 000
 	            STA DUARTCSRA
-	            LDA #$0A          ; Enable Timer/RxRDYA Interrupts
-	            STA DUARTIMR
-	            LDA #$24          ; 100hz interval for Timer
-	            STA DUARTCTPU
-	            STZ DUARTCTL
-	            LDA DUARTSOPR     ; Start timer
+	            ;LDA #$0A          ; Enable Timer/RxRDYA Interrupts
+	            ;STA DUARTIMR
+	            ;LDA #$24          ; 100hz interval for Timer
+	            ;STA DUARTCTPU
+	            ;STZ DUARTCTL
+	            ;LDA DUARTSOPR     ; Start timer
 	            LDA #$05
 	            STA DUARTCRA      ; Enable TX/RX on Channel A
 	            LDA #$0A

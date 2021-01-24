@@ -11,10 +11,11 @@
 	.importzp	tmp1, tmp2, tmp3, tmp4, ptr1, ptr2, ptr3, ptr4
 	.macpack	longbranch
 	.forceimport	__STARTUP__
+	.import		_duart_init
+	.import		_duart_getc
+	.import		_duart_puts
+	.import		_duart_put_newline
 	.import		_CHROUT
-	.import		_PRNTLN
-	.import		_PRNL
-	.import		_KBINPUT
 	.export		_main
 
 .segment	"RODATA"
@@ -25,7 +26,7 @@ S0001:
 	.byte	$73,$6E,$69,$63,$65,$21,$21,$00
 S0002:
 	.byte	$54,$65,$64,$20,$6D,$75,$7A,$65,$73,$20,$7A,$61,$63,$69,$74,$20
-	.byte	$70,$73,$61,$74,$00
+	.byte	$70,$73,$61,$74,$2E,$00
 
 ; ---------------------------------------------------------------
 ; void __near__ main (void)
@@ -37,14 +38,15 @@ S0002:
 
 .segment	"CODE"
 
+	jsr     _duart_init
 	lda     #<(S0001)
 	ldx     #>(S0001)
-	jsr     _PRNTLN
+	jsr     _duart_puts
+	jsr     _duart_put_newline
 	lda     #<(S0002)
 	ldx     #>(S0002)
-	jsr     _PRNTLN
-	jsr     _PRNL
-L0002:	jsr     _KBINPUT
+	jsr     _duart_puts
+L0002:	jsr     _duart_getc
 	jsr     _CHROUT
 	bra     L0002
 
